@@ -38,7 +38,7 @@ export const useWallet = () => {
         params: [accounts[0], 'latest'],
       });
 
-      const balanceInEth = parseFloat(parseInt(balance, 16) / Math.pow(10, 18)).toFixed(4);
+      const balanceInEth = (parseInt(balance, 16) / Math.pow(10, 18)).toFixed(4);
 
       setWallet({
         isConnected: true,
@@ -80,8 +80,10 @@ export const useWallet = () => {
       window.ethereum.on('chainChanged', handleChainChanged);
 
       return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
+        if (window.ethereum) {
+          window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+          window.ethereum.removeListener('chainChanged', handleChainChanged);
+        }
       };
     }
   }, [connectWallet, disconnectWallet]);
