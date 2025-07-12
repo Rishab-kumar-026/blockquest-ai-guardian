@@ -1,12 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from 'react';
+import { HeroSection } from '@/components/HeroSection';
+import { QuestDashboard } from '@/components/QuestDashboard';
+import { WalletHealth } from '@/components/WalletHealth';
+import { AIAssistant } from '@/components/AIAssistant';
+import { Leaderboard } from '@/components/Leaderboard';
+import { UserProfile } from '@/components/UserProfile';
+import { Navigation } from '@/components/Navigation';
+import { CyberBackground } from '@/components/CyberBackground';
 
 const Index = () => {
+  const [activeSection, setActiveSection] = useState('hero');
+  const [userLevel, setUserLevel] = useState(3);
+  const [userXP, setUserXP] = useState(1250);
+  const [walletScore, setWalletScore] = useState(68);
+
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'hero':
+        return <HeroSection onStartQuest={() => setActiveSection('quests')} />;
+      case 'quests':
+        return <QuestDashboard userLevel={userLevel} userXP={userXP} />;
+      case 'wallet':
+        return <WalletHealth score={walletScore} />;
+      case 'leaderboard':
+        return <Leaderboard />;
+      case 'profile':
+        return <UserProfile level={userLevel} xp={userXP} />;
+      default:
+        return <HeroSection onStartQuest={() => setActiveSection('quests')} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
+      <CyberBackground />
+      
+      <Navigation activeSection={activeSection} onSectionChange={setActiveSection} />
+      
+      <main className="relative z-10">
+        {renderSection()}
+      </main>
+
+      <AIAssistant />
     </div>
   );
 };
