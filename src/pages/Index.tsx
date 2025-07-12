@@ -7,8 +7,9 @@ import { AIAssistant } from '@/components/AIAssistant';
 import { Leaderboard } from '@/components/Leaderboard';
 import { UserProfile } from '@/components/UserProfile';
 import { Navigation } from '@/components/Navigation';
-import { CyberBackground } from '@/components/CyberBackground';
+import { Interactive3DBackground } from '@/components/Interactive3DBackground';
 import { CursorEffects } from '@/components/CursorEffects';
+import { CursorFollowingAI } from '@/components/CursorFollowingAI';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -35,8 +36,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden cursor-none">
-      <CyberBackground />
+      <Interactive3DBackground />
       <CursorEffects />
+      <CursorFollowingAI />
       
       <Navigation activeSection={activeSection} onSectionChange={setActiveSection} />
       
