@@ -1,5 +1,4 @@
-
-import { Award, Star, Shield, Target, Trophy } from 'lucide-react';
+import { Award, Star, Shield, Target, Trophy, Crown } from 'lucide-react';
 
 interface UserProfileProps {
   level: number;

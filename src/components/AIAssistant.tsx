@@ -1,15 +1,21 @@
-
 import { useState } from 'react';
 import { Bot, X, Send, Minimize2, Maximize2 } from 'lucide-react';
+
+interface Message {
+  id: number;
+  type: 'ai' | 'user';
+  content: string;
+  timestamp: Date;
+}
 
 export const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      type: 'ai' as const,
+      type: 'ai',
       content: "Hey there! I'm your AI security assistant. I've analyzed your wallet and found 3 risky token approvals. Would you like me to help you revoke them?",
       timestamp: new Date()
     }
@@ -18,9 +24,9 @@ export const AIAssistant = () => {
   const handleSendMessage = () => {
     if (!message.trim()) return;
 
-    const userMessage = {
+    const userMessage: Message = {
       id: messages.length + 1,
-      type: 'user' as const,
+      type: 'user',
       content: message,
       timestamp: new Date()
     };
@@ -30,9 +36,9 @@ export const AIAssistant = () => {
 
     // Simulate AI response
     setTimeout(() => {
-      const aiResponse = {
+      const aiResponse: Message = {
         id: messages.length + 2,
-        type: 'ai' as const,
+        type: 'ai',
         content: "I can help you with that! Here are the steps to improve your wallet security. Would you like me to guide you through the process?",
         timestamp: new Date()
       };
